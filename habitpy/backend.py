@@ -3,9 +3,24 @@ def create_table(connection):
 
     cursor.execute(
         """
-                   CREATE TABLE IF NOT EXISTS habits
-                   (name TEXT, times INTEGER, last_modified INTEGER)
-                   """
+        CREATE TABLE IF NOT EXISTS habit
+            (name TEXT,
+             times INTEGER,
+             started INTEGER,
+             last_modified INTEGER)
+        """
+    )
+
+    connection.commit()
+    cursor.close()
+
+
+def create_habit(connection, name, times, started, last_modified):
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO habit VALUES(?, ?, ?, ?)",
+        (name, times, last_modified, started),
     )
 
     connection.commit()
