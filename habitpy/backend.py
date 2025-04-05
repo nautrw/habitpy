@@ -44,7 +44,7 @@ def delete_habit(connection, id):
 def rename_habit(connection, id, new_name):
     cursor = connection.cursor()
 
-    current_time = time.time()
+    current_time = int(time.time())
 
     cursor.execute(
         "UPDATE habit SET name=?, last_modified=? WHERE rowid=?",
