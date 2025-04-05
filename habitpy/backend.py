@@ -1,3 +1,6 @@
+import time
+
+
 def create_table(connection):
     cursor = connection.cursor()
 
@@ -15,12 +18,14 @@ def create_table(connection):
     cursor.close()
 
 
-def create_habit(connection, name, times, started, last_modified):
+def create_habit(connection, name):
     cursor = connection.cursor()
+
+    time_started = int(time.time())
 
     cursor.execute(
         "INSERT INTO habit VALUES(?, ?, ?, ?)",
-        (name, times, last_modified, started),
+        (name, 0, time_started, time_started),
     )
 
     connection.commit()
@@ -39,7 +44,12 @@ def delete_habit(connection, id):
 def rename_habit(connection, id, new_name):
     cursor = connection.cursor()
 
-    cursor.execute("UPDATE habit SET name=? WHERE rowid=?", (id, new_name))
+    current_time = time.time()
+
+    cursor.execute(
+        "UPDATE habit SET name=?, last_modified=? WHERE rowid=?",
+        (new_name, current_time, id),
+    )
 
     connection.commit()
     cursor.close()
