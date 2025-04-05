@@ -25,3 +25,12 @@ def create_habit(connection, name, times, started, last_modified):
 
     connection.commit()
     cursor.close()
+
+
+def delete_habit(connection, id):
+    cursor = connection.cursor()
+
+    cursor.execute("DELETE FROM habit WHERE rowid=?", (id,))
+
+    connection.commit()
+    cursor.close()
