@@ -34,3 +34,12 @@ def delete_habit(connection, id):
 
     connection.commit()
     cursor.close()
+
+
+def rename_habit(connection, id, new_name):
+    cursor = connection.cursor()
+
+    cursor.execute("UPDATE habit SET name=? WHERE rowid=?", (id, new_name))
+
+    connection.commit()
+    cursor.close()
