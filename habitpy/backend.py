@@ -55,14 +55,14 @@ def rename_habit(connection, id, new_name):
     cursor.close()
 
 
-def increase_habit(connection, id):
+def change_habit_times(connection, id, change):
     cursor = connection.cursor()
 
     current_time = int(time.time())
 
     cursor.execute(
-        "UPDATE habit SET times=times+1, last_modified=? WHERE rowid=?",
-        (current_time, id),
+        "UPDATE habit SET times=times+?, last_modified=? WHERE rowid=?",
+        (change, current_time, id),
     )
 
     connection.commit()
