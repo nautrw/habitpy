@@ -10,4 +10,5 @@ if __name__ == "__main__":
 
     backend.create_habit(CONNECTION, "test")
     backend.create_habit(CONNECTION, "test2")
-    backend.increase_habit(CONNECTION, 2)
+    backend.change_habit_times(CONNECTION, 2, 3)
+    backend.change_habit_times(CONNECTION, 2, -1)
