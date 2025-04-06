@@ -75,3 +75,11 @@ def get_habit(connection, id):
     cursor.execute("SELECT * FROM habit WHERE rowid=?", (id,))
 
     cursor.close()
+
+
+def get_all_habits(connection):
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM habit")
+
+    cursor.close()
