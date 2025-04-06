@@ -31,6 +31,9 @@ def create_habit(connection, name):
     connection.commit()
     cursor.close()
 
+    lastrowid = cursor.lastrowid
+    return lastrowid
+
 
 def delete_habit(connection, id):
     cursor = connection.cursor()
