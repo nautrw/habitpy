@@ -72,14 +72,17 @@ def change_habit_times(connection, id, change):
 def get_habit(connection, id):
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM habit WHERE rowid=?", (id,))
+    response = cursor.execute(
+        "SELECT * FROM habit WHERE rowid=?", (id,)).fetchone()
 
     cursor.close()
+    return response
 
 
 def get_all_habits(connection):
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM habit")
+    response = cursor.execute("SELECT * FROM habit").fetchall()
 
     cursor.close()
+    return response
