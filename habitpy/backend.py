@@ -67,3 +67,11 @@ def change_habit_times(connection, id, change):
 
     connection.commit()
     cursor.close()
+
+
+def get_habit(connection, id):
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM habit WHERE rowid=?", (id,))
+
+    cursor.close()
