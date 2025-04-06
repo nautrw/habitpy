@@ -14,6 +14,12 @@ def create(name: str):
     print(f"Successfuly created habit '{name}' with ID {id}")
 
 
+@app.command()
+def delete(id: int):
+    backend.delete_habit(CONNECTION, id)
+    print(f"Successfuly deleted habit with ID {id}")
+
+
 if __name__ == "__main__":
     backend.create_table(CONNECTION)
 
