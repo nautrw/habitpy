@@ -42,12 +42,16 @@ def list():
         print("No habits found")
         exit()
 
-    table = Table(title="All habits", box=box.ROUNDED)
-    table.add_column("ID")
-    table.add_column("Name")
-    table.add_column("Times")
-    table.add_column("Date Started")
-    table.add_column("Last Modified")
+    table = Table(
+        "ID",
+        "Name",
+        "Times",
+        "Date Started",
+        "Last Modified",
+        title="All habits",
+        box=box.ROUNDED,
+        row_styles=["", "dim"],
+    )
 
     for habit in all_habits:
         date_started = datetime.fromtimestamp(habit[3]).strftime("%b %d, %Y")
