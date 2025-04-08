@@ -85,7 +85,9 @@ def get_habit(connection, id):
 def get_all_habits(connection):
     cursor = connection.cursor()
 
-    response = cursor.execute("SELECT * FROM habit").fetchall()
+    response = cursor.execute(
+        "SELECT rowid, * FROM habit ORDER BY rowid ASC"
+    ).fetchall()
 
     cursor.close()
     return response
