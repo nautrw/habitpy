@@ -59,10 +59,10 @@ def list():
 
         table.add_row(
             str(habit[0]),
-            str(habit[1]),
+            habit[1],
             str(habit[2]),
-            str(date_started),
-            str(last_modified),
+            date_started,
+            last_modified,
         )
 
     console.print(table)
