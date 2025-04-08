@@ -72,16 +72,6 @@ def change_habit_times(connection, id, change):
     cursor.close()
 
 
-def get_habit(connection, id):
-    cursor = connection.cursor()
-
-    response = cursor.execute(
-        "SELECT * FROM habit WHERE rowid=?", (id,)).fetchone()
-
-    cursor.close()
-    return response
-
-
 def get_all_habits(connection):
     cursor = connection.cursor()
 
