@@ -77,6 +77,15 @@ def increase(id: int):
     print(f"Successfully increased times on habit with ID {id}")
 
 
+@app.command()
+def decrease(id: int):
+    """
+    Decrease the times on a habit
+    """
+    backend.change_habit_times(CONNECTION, id, -1)
+    print(f"Successfully decreased times on habit with ID {id}")
+
+
 if __name__ == "__main__":
     backend.create_table(CONNECTION)
 
