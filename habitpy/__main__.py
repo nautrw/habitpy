@@ -19,7 +19,7 @@ def create(name: str):
     Create a habit
     """
     id = backend.create_habit(CONNECTION, name)
-    print(f"Successfuly created habit '{name}' with ID {id}")
+    print(f"Successfully created habit '{name}' with ID {id}")
 
 
 @app.command()
@@ -28,7 +28,7 @@ def delete(id: int):
     Delete a habit
     """
     backend.delete_habit(CONNECTION, id)
-    print(f"Successfuly deleted habit with ID {id}")
+    print(f"Successfully deleted habit with ID {id}")
 
 
 @app.command()
