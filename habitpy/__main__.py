@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+from typing import List
 
 import typer
 from rich import box
@@ -11,6 +12,33 @@ import habitpy.backend as backend
 CONNECTION = sqlite3.connect("data.db")
 app = typer.Typer(no_args_is_help=True, help="CLI habit manager")
 console = Console()
+
+
+def habits_table(all_habits: List, title: str):
+    table = Table(
+        "ID",
+        "Name",
+        "Times",
+        "Date Started",
+        "Last Modified",
+        title=title,
+        box=box.ROUNDED,
+        row_styles=["", "dim"],
+    )
+
+    for habit in all_habits:
+        date_started = datetime.fromtimestamp(habit[3]).strftime("%b %d, %Y")
+        last_modified = datetime.fromtimestamp(habit[4]).strftime("%b %d, %Y")
+
+        table.add_row(
+            str(habit[0]),
+            habit[1],
+            str(habit[2]),
+            date_started,
+            last_modified,
+        )
+
+    return table
 
 
 @app.command()
@@ -36,6 +64,21 @@ def delete(id: int):
 
 
 @app.command()
+def get(id: int):
+    """
+    Get a specific habit
+    """
+    if not backend.check_exists(CONNECTION, id):
+        print(f"Habit with ID {id} does not exist")
+        exit()
+
+    habit = backend.get_habit(CONNECTION, id)
+    table = habits_table([habit], title="Habit")
+
+    console.print(table)
+
+
+@app.command()
 def list():
     """
     List all habits
@@ -46,28 +89,7 @@ def list():
         print("No habits found")
         exit()
 
-    table = Table(
-        "ID",
-        "Name",
-        "Times",
-        "Date Started",
-        "Last Modified",
-        title="All habits",
-        box=box.ROUNDED,
-        row_styles=["", "dim"],
-    )
-
-    for habit in all_habits:
-        date_started = datetime.fromtimestamp(habit[3]).strftime("%b %d, %Y")
-        last_modified = datetime.fromtimestamp(habit[4]).strftime("%b %d, %Y")
-
-        table.add_row(
-            str(habit[0]),
-            habit[1],
-            str(habit[2]),
-            date_started,
-            last_modified,
-        )
+    table = habits_table(all_habits, title="All Habits")
 
     console.print(table)
 
