@@ -27,6 +27,10 @@ def delete(id: int):
     """
     Delete a habit
     """
+    if not backend.check_exists(CONNECTION, id):
+        print(f"Habit with ID {id} does not exist")
+        exit()
+
     backend.delete_habit(CONNECTION, id)
     print(f"Successfully deleted habit with ID {id}")
 
@@ -73,6 +77,10 @@ def increase(id: int):
     """
     Increase the times on a habit
     """
+    if not backend.check_exists(CONNECTION, id):
+        print(f"Habit with ID {id} does not exist")
+        exit()
+
     backend.change_habit_times(CONNECTION, id, 1)
     print(f"Successfully increased times on habit with ID {id}")
 
@@ -82,6 +90,10 @@ def decrease(id: int):
     """
     Decrease the times on a habit
     """
+    if not backend.check_exists(CONNECTION, id):
+        print(f"Habit with ID {id} does not exist")
+        exit()
+
     backend.change_habit_times(CONNECTION, id, -1)
     print(f"Successfully decreased times on habit with ID {id}")
 
