@@ -91,3 +91,14 @@ def check_exists(connection, id):
 
     cursor.close()
     return len(results) >= 1
+
+
+def get_habit(connection, id):
+    cursor = connection.cursor()
+
+    response = cursor.execute(
+        "SELECT rowid, * FROM habit WHERE rowid=?", (id,)
+    ).fetchone()
+
+    cursor.close()
+    return response
