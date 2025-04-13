@@ -46,7 +46,10 @@ def create(name: str):
     Create a habit
     """
     id = backend.create_habit(CONNECTION, name)
-    print(f"Successfully created habit '{name}' with ID {id}")
+    fg = typer.colors.GREEN
+    typer.secho(
+        f"Successfully created habit '{name}' with ID {id}", fg=fg
+    )  # read next comment
 
 
 @app.command()
@@ -55,11 +58,14 @@ def delete(id: int):
     Delete a habit
     """
     if not backend.check_exists(CONNECTION, id):
-        print(f"Habit with ID {id} does not exist")
+        typer.secho(f"Habit with ID {id} does not exist", fg=typer.colors.RED)
         exit()
 
     backend.delete_habit(CONNECTION, id)
-    print(f"Successfully deleted habit with ID {id}")
+    fg = typer.colors.GREEN
+    typer.secho(
+        f"Successfully deleted habit with ID {id}", fg=fg
+    )  # stupid flake8 keeps bothering me
 
 
 @app.command()
@@ -69,7 +75,7 @@ def get(id: int):
     """
     console = Console()
     if not backend.check_exists(CONNECTION, id):
-        print(f"Habit with ID {id} does not exist")
+        typer.secho(f"Habit with ID {id} does not exist", fg=typer.colors.RED)
         exit()
 
     habit = backend.get_habit(CONNECTION, id)
@@ -87,7 +93,7 @@ def list():
     all_habits = backend.get_all_habits(CONNECTION)
 
     if len(all_habits) <= 0:
-        print("No habits found")
+        typer.secho("No habits found", fg=typer.colors.RED)
         exit()
 
     table = habits_table(all_habits, title="All Habits")
@@ -101,11 +107,14 @@ def increase(id: int):
     Increase the times on a habit
     """
     if not backend.check_exists(CONNECTION, id):
-        print(f"Habit with ID {id} does not exist")
+        typer.secho(f"Habit with ID {id} does not exist", fg=typer.colors.RED)
         exit()
 
     backend.change_habit_times(CONNECTION, id, 1)
-    print(f"Successfully increased times on habit with ID {id}")
+    fg = typer.colors.GREEN
+    typer.secho(
+        f"Successfully increased times on habit with ID {id}", fg=fg
+    )  # see comment above this one
 
 
 @app.command()
@@ -114,11 +123,14 @@ def decrease(id: int):
     Decrease the times on a habit
     """
     if not backend.check_exists(CONNECTION, id):
-        print(f"Habit with ID {id} does not exist")
+        typer.secho(f"Habit with ID {id} does not exist", fg=typer.colors.RED)
         exit()
 
     backend.change_habit_times(CONNECTION, id, -1)
-    print(f"Successfully decreased times on habit with ID {id}")
+    fg = typer.colors.GREEN
+    typer.secho(
+        f"Successfully decreased times on habit with ID {id}", fg=fg
+    )  # read comment above this one
 
 
 if __name__ == "__main__":
