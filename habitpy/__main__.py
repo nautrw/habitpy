@@ -11,7 +11,6 @@ import habitpy.backend as backend
 
 CONNECTION = sqlite3.connect("data.db")
 app = typer.Typer(no_args_is_help=True, help="CLI habit manager")
-console = Console()
 
 
 def habits_table(all_habits: List, title: str):
@@ -68,6 +67,7 @@ def get(id: int):
     """
     Get a specific habit
     """
+    console = Console()
     if not backend.check_exists(CONNECTION, id):
         print(f"Habit with ID {id} does not exist")
         exit()
@@ -83,6 +83,7 @@ def list():
     """
     List all habits
     """
+    console = Console()
     all_habits = backend.get_all_habits(CONNECTION)
 
     if len(all_habits) <= 0:
